@@ -1,0 +1,50 @@
+{
+    "featureBaseInfo": {}, 
+    "tags": [
+        "网络小说", 
+        "文学作品", 
+        "小说作品", 
+        "小说", 
+        "娱乐作品", 
+        "娱乐", 
+        "书籍", 
+        "中国文学"
+    ], 
+    "side_content": "", 
+    "newLemmaIdEnc": "5bb6134f3424ded8d14f1d18", 
+    "intro": "", 
+    "relation": false, 
+    "basicInfo": {
+        "连载网站": "云中书城", 
+        "小说进度": "连载", 
+        "中文名": "隐形客", 
+        "作    者": "孤风青竹"
+    }, 
+    "polysemantLis": [], 
+    "synonym": [], 
+    "otherInfo": [
+        {
+            "text": "军事小说\n", 
+            "tables": [], 
+            "subInfo": [], 
+            "title": "小说类型"
+        }, 
+        {
+            "text": "成为特工的那一刻起,他们便失去了过去,失去了自己的真实姓名,唯一真实的,只有他们的编号……\n", 
+            "tables": [], 
+            "subInfo": [], 
+            "title": "内容简介"
+        }
+    ], 
+    "url": "https://baike.baidu.com/view/12417840.htm", 
+    "title": "隐形客", 
+    "summary": "《隐形客》是连载于云中书城的小说，作者是孤风青竹。\n", 
+    "hot": {
+        "收藏": "", 
+        "送花": "", 
+        "赞": "2", 
+        "分享": "0", 
+        "浏览次数": 0
+    }, 
+    "lemmaid": "13253253"
+}
