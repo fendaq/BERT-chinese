@@ -1,6 +1,5 @@
 import os
-import jieba
-
+import tokenization
 
 import re, collections
 def get_stats(vocab):
@@ -22,12 +21,15 @@ def merge_vocab(pair, v_in):
 vocab = {'l o w </w>' : 5, 'l o w e r </w>' : 2,
 'n e w e s t </w>':6, 'w i d e s t </w>':3}
 
-num_merges = 10
+num_merges = 20
 for i in range(num_merges):
+    print(i)
     pairs = get_stats(vocab)
-    best = max(pairs, key=pairs.get)
-    vocab = merge_vocab(best, vocab)
-    print(best)
+    if len(pairs)>0:
+      best = max(pairs, key=pairs.get)
+      vocab = merge_vocab(best, vocab)
+      print(best,pairs[best])
+      print(vocab)
 
 
 def isEN(uchar):
@@ -48,7 +50,8 @@ def isDigit(x):
     except ValueError:
         return False
 
-# word2count = {}
+tokenizer = tokenization.BasicTokenizer()
+word2count = {}
 vocab = set()
 dir = os.listdir("../data")
 for file in dir:
@@ -56,7 +59,7 @@ for file in dir:
     f = open("../data/" + file, mode="r", encoding="utf-8")
     lines = f.readlines()
     for line in lines:
-        word_list = jieba.lcut(line,HMM=False)
+        word_list = tokenizer.chinese_tokenize(line)
         for word in word_list:
             if isEN(word[0]) and len(word)>20:
                 continue
@@ -66,10 +69,10 @@ for file in dir:
                 continue
             vocab.add(word.replace("\n",""))
 
-            # if word.replace("\n","") not in word2count:
-            #     word2count[word] = 1
-            # else:
-            #     word2count[word] +=1
+            if word.replace("\n","") not in word2count:
+                word2count[word] = 1
+            else:
+                word2count[word] +=1
 
 f2 = open("../vocab/cn_vocab",mode="w",encoding="utf-8")
 

@@ -22,7 +22,7 @@ import collections
 import unicodedata
 import six
 import tensorflow as tf
-
+import jieba
 
 def convert_to_unicode(text):
   """Converts `text` to Unicode (if it's not already), assuming utf-8 input."""
@@ -110,6 +110,13 @@ class FullTokenizer(object):
     self.basic_tokenizer = BasicTokenizer(do_lower_case=do_lower_case)
     self.wordpiece_tokenizer = WordpieceTokenizer(vocab=self.vocab)
 
+  def chinese_tokenize(self,text):
+      split_tokens = []
+      for token in self.basic_tokenizer.chinese_tokenize(text):
+          for sub_token in self.wordpiece_tokenizer.tokenize(token):
+              split_tokens.append(sub_token)
+      return split_tokens
+
   def tokenize(self, text):
     split_tokens = []
     for token in self.basic_tokenizer.tokenize(text):
@@ -132,6 +139,30 @@ class BasicTokenizer(object):
       do_lower_case: Whether to lower case the input.
     """
     self.do_lower_case = do_lower_case
+
+  def isEN(self,uchar):
+      if (uchar >= u'\u0041' and uchar <= u'\u005a') or (uchar >= u'\u0061' and uchar <= u'\u007a'):
+          return True
+      else:
+          return False
+
+  def isDigit(self,x):
+      try:
+          x = int(x)
+          return isinstance(x, int)
+      except ValueError:
+          return False
+
+  def chinese_tokenize(self, text):
+      tokens = jieba.lcut(text, HMM=False)
+      tokens_ = []
+      for t in tokens:
+          if t == "" or t == " ":
+              continue
+          if self.isEN(t[0]) or self.isDigit(t[0]):
+              t = t.lower()
+          tokens_.append(t)
+      return tokens
 
   def tokenize(self, text):
     """Tokenizes a piece of text."""
